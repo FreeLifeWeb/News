@@ -1,0 +1,29 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    transition: 0.5s ease-in-out; /* добавим плавность переходов для всех элементов страницы*/
+}
+ul {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+body {
+    font-family: 'Open Sans', arial, sans-serif;
+    font-size: 14px;
+    line-height: 1;
+    color: #373737;
+    background: #f7f7f7;
+}
+
+.container {
+    min-height: 100vh;
+    padding: 24px;
+    background-color: white;
+}
