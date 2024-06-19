@@ -4,14 +4,9 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    transition: 0.5s ease-in-out; /* добавим плавность переходов для всех элементов страницы*/
 }
 ul {
     list-style: none;
-}
-a {
-    text-decoration: none;
-    outline: none;
 }
 
 body {
