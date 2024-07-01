@@ -6,23 +6,28 @@ import { NewsList } from '../../components/NewsList/NewsList';
 import { Skeleton } from '../../components/Skeleton/Skeleton';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { Categories } from '../../components/Categories/Categories';
+import { Search } from '../../components/Search/Search';
+import { useDebounce } from '../../helpers/hooks/useDebounce';
 
 export const Main = () => {
     const [news, setNews] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState([]);
+    const [keywords, setKeywords] = useState('');
     const [selectCategory, setSelectCategory] = useState('All');
     const totalPages = 10;
     const pageSize = 10;
+    const debounceKeyWord = useDebounce(keywords, 1500);
 
     useEffect(() => {
         fetchNews(currentPage);
-    }, [currentPage, selectCategory]);
+    }, [currentPage, selectCategory, debounceKeyWord]);
 
     useEffect(() => {
         fetchCategories();
     }, []);
+
     const fetchNews = async (currentPage) => {
         try {
             setIsLoading(true);
@@ -30,6 +35,7 @@ export const Main = () => {
                 page_number: currentPage,
                 page_size: pageSize,
                 category: selectCategory === 'All' ? null : selectCategory,
+                keywords: debounceKeyWord,
             });
             // console.log(data);
             setNews(data.news);
@@ -65,6 +71,7 @@ export const Main = () => {
     function handleClickPage(page) {
         setCurrentPage(page);
     }
+    // console.log('keywords: ', keywords);
     return (
         <main className={styles.main}>
             <Categories
@@ -72,6 +79,7 @@ export const Main = () => {
                 selectCategory={selectCategory}
                 setSelectCategory={setSelectCategory}
             />
+            <Search keywords={keywords} setKeywords={setKeywords} />
             {news.length > 0 && !isLoading ? (
                 <NewsBanner item={news[0]} />
             ) : (
