@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './style.module.css';
 import { NewsItem } from '../NewsItem/NewsItem';
+import { withSkeleton } from '../../helpers/hocs/WithSkeleton';
 
-export const NewsList = ({ news }) => {
+const NewsList = ({ news }) => {
     return (
         <ul className={styles.list}>
             {news.map((item) => {
@@ -11,3 +12,5 @@ export const NewsList = ({ news }) => {
         </ul>
     );
 };
+
+export const NewsListWithSkeleton = withSkeleton(NewsList, 'item', 10);
