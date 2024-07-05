@@ -4,7 +4,7 @@ import { NewsBanner } from '../NewsBanner/NewsBanner';
 
 const BannersList = ({ banners }) => {
     return (
-        <ul className={styles.banners}>
+        <ul className={styles.banner}>
             {banners?.map((banner) => {
                 return <NewsBanner key={banner.id} item={banner} />;
             })}
