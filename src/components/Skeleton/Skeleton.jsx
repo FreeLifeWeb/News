@@ -1,10 +1,20 @@
 import style from './style.module.css';
 
-export const Skeleton = ({ count = 1, type = 'banner' }) => {
+export const Skeleton = ({
+    count = 1,
+    type = 'banner',
+    direction = 'column',
+}) => {
     return (
         <>
             {count > 1 ? (
-                <ul className={style.list}>
+                <ul
+                    className={
+                        direction === 'column'
+                            ? style.columnList
+                            : style.rowList
+                    }
+                >
                     {[...Array(count)].map((__, index) => (
                         <li
                             key={index}
