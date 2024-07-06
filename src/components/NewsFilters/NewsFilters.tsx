@@ -4,9 +4,17 @@ import { Categories } from '../Categories/Categories';
 import { Search } from '../Search/Search';
 import { getCategories } from '../../api/apiNews';
 import { Slider } from '../Slider/Slider';
+import { CategoriesApiResponse, IFilters } from '../../interfaces';
 
-export const NewsFilters = ({ filters, changeFilters }) => {
-    const { data: dataCategories } = useFetch(getCategories);
+interface Props {
+    filters: IFilters;
+    changeFilters: (key: string, value: string | null | undefined) => void;
+}
+
+export const NewsFilters = ({ filters, changeFilters }: Props) => {
+    const { data: dataCategories } = useFetch<CategoriesApiResponse, null>(
+        getCategories
+    );
     return (
         <div className={styles.filters}>
             {' '}
@@ -23,7 +31,9 @@ export const NewsFilters = ({ filters, changeFilters }) => {
             ) : null}
             <Search
                 keywords={filters.keywords}
-                setKeywords={(keywords) => changeFilters('keywords', keywords)}
+                setKeywords={(keywords: string) =>
+                    changeFilters('keywords', keywords)
+                }
             />
         </div>
     );

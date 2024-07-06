@@ -1,19 +1,21 @@
 import { cloneElement, useRef } from 'react';
 import styles from './style.module.css';
 
-export const Slider = ({ children, step = 150 }) => {
-    const scrollRef = useRef(null);
+interface Props {
+    children: React.ReactElement;
+    step?: number;
+}
+export const Slider = ({ children, step = 150 }: Props) => {
+    const scrollRef = useRef<HTMLElement | null>(null);
 
     const scrollLeft = () => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollLeft -= step;
-        }
+        if (!scrollRef.current) return;
+        scrollRef.current.scrollLeft -= step;
     };
 
     const scrollRight = () => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollLeft += step;
-        }
+        if (!scrollRef.current) return;
+        scrollRef.current.scrollLeft += step;
     };
     return (
         <div className={styles.slider}>
