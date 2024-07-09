@@ -5,13 +5,16 @@ import { Search } from '../Search/Search';
 import { getCategories } from '../../api/apiNews';
 import { Slider } from '../Slider/Slider';
 import { CategoriesApiResponse, IFilters } from '../../interfaces';
+import { useTheme } from '../../context/ThemeContext';
 
 interface Props {
     filters: IFilters;
-    changeFilters: (key: string, value: string | null | undefined) => void;
+    changeFilters: (key: string, value: string | number | null) => void;
 }
 
 export const NewsFilters = ({ filters, changeFilters }: Props) => {
+    const { isDark } = useTheme();
+
     const { data: dataCategories } = useFetch<CategoriesApiResponse, null>(
         getCategories
     );
@@ -19,7 +22,7 @@ export const NewsFilters = ({ filters, changeFilters }: Props) => {
         <div className={styles.filters}>
             {' '}
             {dataCategories ? (
-                <Slider>
+                <Slider isDark={isDark}>
                     <Categories
                         categories={dataCategories.categories}
                         selectCategory={filters.category}
