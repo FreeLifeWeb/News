@@ -1,3 +1,4 @@
+import { useTheme } from '../../context/ThemeContext';
 import { IPaginationProps } from '../../interfaces';
 import style from './style.module.css';
 
@@ -8,8 +9,14 @@ export const Pagination = ({
     handleClickPage,
     currentPage,
 }: IPaginationProps) => {
+    const { isDark } = useTheme();
+
     return (
-        <div className={style.pagination}>
+        <div
+            className={`${style.pagination} ${
+                isDark ? style.dark : style.light
+            }`}
+        >
             <button
                 className={style.arrow}
                 onClick={() => handlePreviosPage()}
